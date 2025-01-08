@@ -23,10 +23,6 @@ const teamSchema = new mongoose.Schema({//This creates a new schema for the game
       min: 0,
       max: 10,
     },
-    rating: {
-      type: Number,
-      default: 0, 
-    },
     franchisePlayers: [
       {
         name: {

@@ -1,5 +1,5 @@
 // Seed data for teams
-const teams = [
+const defaultTeams = [
   {
     teamName: 'Minnesota Vikings',
     city: 'Minneapolis',
@@ -11,11 +11,15 @@ const teams = [
     city: 'Green Bay',
     foundedYear: 1919,
     superbowlWins: 4,
+    franchisePlayers: [
+        { name: 'Justin Jefferson', position: 'Wide Receiver', jerseyNumber: 18 },
+        { name: 'Sam Darnold', position: 'Quarterback', jerseyNumber: 14 },
+      ],
   },
 ];
 
 // Seed data for players
-const players = [
+const defaultPlayers = [
   {
     name: 'Justin Jefferson',
     position: 'Wide Receiver',
@@ -39,7 +43,7 @@ const players = [
 ];
 
 // Seed data for games
-const games = [
+const defaultGames = [
   {
     homeTeam: 'Minnesota Vikings',
     awayTeam: 'Green Bay Packers',
@@ -48,8 +52,9 @@ const games = [
       homeTeamScore: 27,
       awayTeamScore: 25,
     },
-    location: 'U.S. Bank Stadium, Minneapolis',
+    location: 'Bank Stadium, Minneapolis ',
   },
 ];
 
 
+module.exports = {defaultGames, defaultPlayers, defaultTeams};//This exports the defaultTeams, defaultPlayers, and defaultGames arrays so they can be used in other files. The seed data is used to populate the database with initial data when the application starts.
