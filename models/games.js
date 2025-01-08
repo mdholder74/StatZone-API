@@ -4,26 +4,47 @@
 const mongoose = require('mongoose');//This imports the Mongoose library to interact with a MongoDB database.
 
 //SCHEMA
-const gameSchema = new mongoose.Schema({//This creates a new schema for the game model.
-  teamName: {
-    type: String,
-  },
-  city: {
-    type: String,
-  },
-  foundedYear: {
-    type: Number,
+const gameSchema = new mongoose.Schema(
+    {
+      homeTeam: {
+        type: String,
+        required: true,
+      },
+      awayTeam: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: Date,
+        default: Date.now, 
+      },
+      score: {
+        homeTeamScore: {
+          type: Number,
+          required: true,
+        },
+        awayTeamScore: {
+          type: Number,
+          required: true,
+        },
+      },
+      location: {
+        stadium: {
+          type: String,
+          required: true,
+        },
+        city: {
+          type: String,
+          required: true,
+        },
+        country: {
+          type: String,
+          default: "USA", 
+        },
+      },
     },
-  championshipsWon: {
-    type: Number,
-  },
-  rating: {
-    type: Number,
-    required: true,
-    },
-    players: [
-    { id: 1, name: "Justin Jefferson", position: "Wide Receiver", jerseyNumber: 18 },
-    { id: 2, name: "Sam Darnold", position: "Quarterback", jerseyNumber: 14 }
-    ]
+    { timestamps: true } // Automatically adds createdAt and updatedAt
+  );
+  
 
-})
+  
