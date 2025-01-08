@@ -13,9 +13,9 @@ connection();//calling the conn function to connect to the database
 //SETUP MIDDLEWARE FOR POST REQUESTS
 app.use(express.json());
 
-//IMPORT NFLROUTES FILE AND SETUP MIDDLEWARE FOR REQUESTS
+//IMPORTS NFLROUTES FILE AND SETUP MIDDLEWARE TO USE FOR THE ENDPOINT
 const nflRoutes = require('./routes/nflRoutes');
-app.use('/nfl', nflRoutes);
+app.use('/api/teams', nflRoutes);
 
 //IMPORT MODELS (EXAMPLE: const model Name = require('./folder name/file_name'))
 const Team = require('./models/teams');
@@ -30,9 +30,12 @@ app.get('/', (req, res) => {
 //GET ROUTE TEAM
 app.get('/teams/seed', async (req, res) => {
     try {
-        await Team.deleteMany({});//This deletes all the documents in the teams collection.
-        await Team.create(defaultTeams);//This creates new documents in the teams collection using the defaultTeams array.
-        res.json({ message: 'Teams seeded successfully' });//This sends a JSON response with a message indicating that the teams were seeded successfully.
+        await Team.deleteMany({});//This command will delete all the documents in the teams collection. This effectively clears the collection before adding new data.
+        const seededTeams = await Team.create(defaultTeams);//This creates new documents in the teams collection using the defaultTeams array.
+        res.json({ //This sends a JSON response with a message indicating that the teams were seeded successfully along with the seeded teams data.
+            message: 'Teams seeded successfully' ,
+            teams: seededTeams
+        });
 
     } catch (error) {
         console.log(`Somthing went wrong: ${error.message}`)
@@ -43,8 +46,11 @@ app.get('/teams/seed', async (req, res) => {
 app.get('/players/seed', async (req, res) => {
     try {
         await Player.deleteMany({});//This deletes all the documents in the players collection.
-        await Player.create(defaultPlayers);//This creates new documents in the players collection using the defaultPlayers array.
-        res.json({ message: 'Players seeded successfully' });//This sends a JSON response with a message indicating that the players were seeded successfully.
+        const seededPlayer = await Player.create(defaultPlayers);//This creates new documents in the players collection using the defaultPlayers array.
+        res.json({ //This sends a JSON response with a message indicating that the teams were seeded successfully along with the seeded teams data.
+            message: 'Players seeded successfully',
+            players: seededPlayer, 
+        });
 
     } catch (error) {
         console.log(`Somthing went wrong: ${error.message}`)
@@ -55,8 +61,11 @@ app.get('/players/seed', async (req, res) => {
 app.get('/games/seed', async (req, res) => {
     try {
         await Game.deleteMany({});//This deletes all the documents in the games collection.
-        await Game.create(defaultGames);//This creates new documents in the games collection using the defaultGames array.
-        res.json({ message: 'Games seeded successfully' });//This sends a JSON response with a message indicating that the games were seeded successfully.
+        const seededGame = await Game.create(defaultGames);//This creates new documents in the games collection using the defaultGames array.
+        res.json({ 
+            message: 'Games seeded successfully',
+            games: seededGame,
+        });//This sends a JSON response with a message indicating that the games were seeded successfully.
 
     } catch (error) {
         console.log(`Somthing went wrong: ${error.message}`)
