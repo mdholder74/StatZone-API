@@ -17,7 +17,7 @@ const teamSchema = new mongoose.Schema({//This creates a new schema for the game
       type: Number,
       required: true,
     },
-    championshipsWon: {
+    superbowlWins: {
       type: Number,
       required: true,
       min: 0,
@@ -46,4 +46,11 @@ const teamSchema = new mongoose.Schema({//This creates a new schema for the game
       },
     ],
   }, { timestamps: true }); // Automatically adds createdAt and updatedAt fields
+
+  //MODEL
+  const Team = mongoose.model('Team', teamSchema);//This creates a new model based on the schema and returns it. The model is then exported so it can be used in other files.
+
+  //EXPORT MODEL
+  module.exports = Team;//This exports the Team model so it can be used in other files. The first argument is the name of the model, and the second argument is the schema that defines the structure of the model. The model function creates a new model based on the schema and returns it. The model is then exported so it can be used in other files.
+
   

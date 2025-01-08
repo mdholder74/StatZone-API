@@ -46,5 +46,10 @@ const gameSchema = new mongoose.Schema(
     { timestamps: true } // Automatically adds createdAt and updatedAt
   );
   
+  //MODEL
+  const Game = mongoose.model('Game', gameSchema);//This creates a new model based on the schema and returns it. The model is then exported so it can be used in other files.
+
+  //EXPORT MODEL
+  module.exports = Game;//This exports the game model so it can be used in other files. The first argument is the name of the model, and the second argument is the schema that defines the structure of the model. The model function creates a new model based on the schema and returns it. The model is then exported so it can be used in other files.
 
   
