@@ -17,6 +17,9 @@ app.use(express.json());
 const nflRoutes = require('./routes/nflRoutes');
 app.use('/api/teams', nflRoutes);
 
+//IMPORT SEED/DEFAULT DATA
+const {defaultTeams, defaultPlayers, defaultGames} = require('./config/seed');
+
 //IMPORT MODELS (EXAMPLE: const model Name = require('./folder name/file_name'))
 const Team = require('./models/teams');
 const Player = require('./models/players');
