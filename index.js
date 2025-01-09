@@ -13,9 +13,9 @@ connection();//calling the conn function to connect to the database
 //SETUP MIDDLEWARE FOR POST REQUESTS
 app.use(express.json());
 
-//IMPORTS NFLROUTES FILE AND SETUP MIDDLEWARE TO USE FOR THE ENDPOINT
+//IMPORTS NFLROUTES FILE AND SETUP MIDDLEWARE TO USE FOR THE ENDPOINT 
 const nflRoutes = require('./routes/nflRoutes');
-app.use('/api/teams', nflRoutes);
+app.use('/api/nfl', nflRoutes);//All routes in nflRoutes will be accessible through the /api/teams base path.(Full http://localhost:2000/api/nfl/seed)
 
 //IMPORT SEED/DEFAULT DATA
 const {defaultTeams, defaultPlayers, defaultGames} = require('./config/seed');
@@ -30,13 +30,15 @@ app.get('/', (req, res) => {
     res.send('Welcome to the NFL API');
 });
 
+//ALL GET ROUTES BELOW THIS SECTION POPULATE SEED/DEFAULT DATA IN THE MONGOdb DATABASE OR THE BROWSER
+
 //GET ROUTE TEAM
-app.get('/teams/seed', async (req, res) => {
+app.get('/teams/seed', async (req, res) => {//Ive decided to name this endpoint '/teams/seed' to make it clear that this route is used for seed/default data in the teams collection.
     try {
         await Team.deleteMany({});//This command will delete all the documents in the teams collection. This effectively clears the collection before adding new data.
         const seededTeams = await Team.create(defaultTeams);//This creates new documents in the teams collection using the defaultTeams array.
         res.json({ //This sends a JSON response with a message indicating that the teams were seeded successfully along with the seeded teams data.
-            message: 'Teams seeded successfully' ,
+            message: 'Teams default data loaded successfully' ,
             teams: seededTeams
         });
 
@@ -46,12 +48,12 @@ app.get('/teams/seed', async (req, res) => {
 });
 
 //GET ROUTE PLAYER
-app.get('/players/seed', async (req, res) => {
+app.get('/players/seed', async (req, res) => {//Ive decided to name this endpoint '/players/seed' to make it clear that this route is used for seed/default data in the players collection.
     try {
         await Player.deleteMany({});//This deletes all the documents in the players collection.
         const seededPlayer = await Player.create(defaultPlayers);//This creates new documents in the players collection using the defaultPlayers array.
         res.json({ //This sends a JSON response with a message indicating that the teams were seeded successfully along with the seeded teams data.
-            message: 'Players seeded successfully',
+            message: 'Players default data loaded successfully',
             players: seededPlayer, 
         });
 
@@ -61,21 +63,19 @@ app.get('/players/seed', async (req, res) => {
 });
 
 //GET ROUTE GAME
-app.get('/games/seed', async (req, res) => {
+app.get('/games/seed', async (req, res) => {//Ive decided to name this endpoint '/games/seed' to make it clear that this route is used for seed/default data in the games collection.
     try {
         await Game.deleteMany({});//This deletes all the documents in the games collection.
         const seededGame = await Game.create(defaultGames);//This creates new documents in the games collection using the defaultGames array.
-        res.json({ 
-            message: 'Games seeded successfully',
+        res.json({ //This sends a JSON response with a message indicating that the games were seeded successfully.
+            message: 'Games default data loaded successfully',
             games: seededGame,
-        });//This sends a JSON response with a message indicating that the games were seeded successfully.
+        });
 
     } catch (error) {
         console.log(`Somthing went wrong: ${error.message}`)
     }
 });
-
-
 
 //SETUP PORT
 app.listen(port, () => {

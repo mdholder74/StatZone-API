@@ -8,11 +8,11 @@ const Player = require('../models/players');
 const Game = require('../models/games');
 
 
-//ALL GET ROUTES BELOW THIS SECTION
+//ALL GET ROUTES BELOW THIS SECTION (Full http://localhost:2000/api/nfl)
 
 
 //GET ROUTE TEAM
-router.get('/', async (req, res) => {
+router.get('/teams', async (req, res) => {
     try {
         const allTeams = await Team.find({});//This retrieves all the documents in the teams collection.
         res.json(allTeams);//This sends a JSON response with the retrieved teams data.
@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
 })
 
 //GET ROUTE PLAYER
-router.get('/', async (req, res) => {
+router.get('/players', async (req, res) => {
     try{
         const allPlayers = await Player.find({});//This retrieves all the documents in the players collection.
         res.json(allPlayers);//This sends a JSON response with the retrieved players data.
@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
 })
 
 //GET ROUTE GAME
-router.get('/', async (req, res) => {
+router.get('/games', async (req, res) => {
     try{
         const allGames = await Game.find({});//This retrieves all the documents in the games collection.
         res.json(allGames);//This sends a JSON response with the retrieved games data
@@ -47,7 +47,7 @@ router.get('/', async (req, res) => {
 
 
 //POST ROUTE TEAM
-router.post('/', async (req, res) => {
+router.post('/teams', async (req, res) => {
     try{
         const createdTeam = await Team.create(req.body);//This creates a new document in the teams collection using the data from the request body.
         res.json(createdTeam);//This sends a JSON response with the created team data.
@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
 })
 
 //POST ROUTE PLAYER
-router.post('/', async (req, res) => {
+router.post('/players', async (req, res) => {
     try{
         const createdPlayer = await Player.create(req.body);//This creates a new document in the players collection using the data from the request body.
         res.json(createdPlayer);//This sends a JSON response with the created player data.
@@ -69,7 +69,7 @@ router.post('/', async (req, res) => {
 })
 
 //POST ROUTE GAME
-router.post('/', async (req, res) => {{
+router.post('/games', async (req, res) => {{
     try{
         const createdGame = await Game.create(req.body);//This creates a new document in the games collection using the data from the request body.
         res.json(createdGame);//This sends a JSON response with the created game data.
@@ -79,7 +79,7 @@ router.post('/', async (req, res) => {{
     }
 }})
 
-//ALL GET ROUTES BY ID BELOW THIS SECTION
+//ALL GET ROUTES BY ID BELOW THIS SECTION (Full http://localhost:2000/api/nfl/:id)
 
 
 //GET ROUTE TEAM BY ID
@@ -151,29 +151,35 @@ router.put('/:id', async (req, res) => {
 
 //ALL DELETE ROUTES BELOW THIS SECTION
 
+router.delete('/teams/:id', async (req, res) => {
+    try {
+        const deletedTeam = await Team.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Team deleted successfully', deletedTeam });
+    } catch (error) {
+        console.log(`Something went wrong: ${error.message}`);
+    }
+});
 
 //DELETE ROUTE FOR ALL MODELS
 // DELETE request to /api/teams/:id
-router.delete('/:id', async (req, res) => {
+
+router.delete('/players/:id', async (req, res) => {
     try {
-      const deletedTeam = await Team.findByIdAndDelete(req.params.id);
-      const deletedGame = await Game.findByIdAndDelete(req.params.id);
-      const deletedPlayer = await Player.findByIdAndDelete(req.params.id);
-  
-      if (!deletedTeam && !deletedGame && !deletedPlayer) {
-        return res.status(404).json({ message: 'No matching documents found to delete.' });
-      }
-  
-      res.json({
-        message: 'Documents deleted successfully.',
-        deletedTeam,
-        deletedGame,
-        deletedPlayer,
-      });
+        const deletedPlayer = await Player.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Player deleted successfully', deletedPlayer });
     } catch (error) {
-      res.status(400).json({ error: error.message });
+        console.log(`Something went wrong: ${error.message}`);
     }
-  });
+});
+
+router.delete('/games/:id', async (req, res) => {
+    try {
+        const deletedGame = await Game.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Game deleted successfully', deletedGame });
+    } catch (error) {
+        console.log(`Something went wrong: ${error.message}`);
+    }
+});
   
 
 //EXPORT ROUTES

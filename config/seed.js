@@ -5,12 +5,6 @@ const defaultTeams = [
     city: 'Minneapolis',
     foundedYear: 1961,
     superbowlWins: 0,
-  },
-  {
-    teamName: 'Green Bay Packers',
-    city: 'Green Bay',
-    foundedYear: 1919,
-    superbowlWins: 4,
     franchisePlayers: [
         { name: 'Justin Jefferson', position: 'Wide Receiver', jerseyNumber: 18 },
         { name: 'Sam Darnold', position: 'Quarterback', jerseyNumber: 14 },
@@ -52,7 +46,11 @@ const defaultGames = [
       homeTeamScore: 27,
       awayTeamScore: 25,
     },
-    location: 'Bank Stadium, Minneapolis ',
+    location: {
+      stadium: 'Bank Stadium',
+      city: 'Minneapolis',
+      country: 'United States',
+    },
   },
 ];
 
