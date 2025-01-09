@@ -7,7 +7,9 @@ const Team = require('../models/teams');
 const Player = require('../models/players');
 const Game = require('../models/games');
 
-//SERVER-SIDE ROUTES
+
+//ALL GET ROUTES BELOW THIS SECTION
+
 
 //GET ROUTE TEAM
 router.get('/', async (req, res) => {
@@ -40,6 +42,9 @@ router.get('/', async (req, res) => {
         console.log(`Somthing went wrong: ${error.message}`)
     }
 })
+
+//ALL POST ROUTES BELOW THIS SECTION
+
 
 //POST ROUTE TEAM
 router.post('/', async (req, res) => {
@@ -74,6 +79,9 @@ router.post('/', async (req, res) => {{
     }
 }})
 
+//ALL GET ROUTES BY ID BELOW THIS SECTION
+
+
 //GET ROUTE TEAM BY ID
 router.get('/:id', async (req, res) => {
     try{
@@ -107,10 +115,13 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+//ALL PUT ROUTES BELOW THIS SECTION
+
+
 //PUT ROUTE TEAM BY ID
-router.put('/id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try{
-        const updatedTeam = await Team.findByIdAndUpdate(req.params.id, req.body, {new: true});//This updates a specific document in the teams collection using the ID from the request parameters and the data from the request body.
+        const updatedTeam = await Team.findByIdAndUpdate(req.params.id, req.body, {new: true});//It finds a team in the teams collection by its ID (req.params.id), updates it with the new data from the request body (req.body), and returns the updated team data with the {new: true} option.
         res.json(updatedTeam);//This sends a JSON response with the updated team data.
     }catch{
         console.log(`Somthing went wrong: ${error.message}`)
@@ -118,14 +129,52 @@ router.put('/id', async (req, res) => {
 })
 
 //PUT ROUTE PLAYER BY ID
-router.put('/id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try{
-        const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, req.body, {new: true});//This updates a specific document in the players collection using the ID from the request parameters and the data from the request body.
+        const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, req.body, {new: true});//It finds a player in the players collection by its ID (req.params.id), updates it with the new data from the request body (req.body), and returns the updated player data with the {new: true} option.
         res.json(updatedPlayer);//This sends a JSON response with the updated player data.
     }catch{
         console.log(`Somthing went wrong: ${error.message}`)
     }
 })
+
+//PUT ROUTE GAME BY ID
+//This sets up a PUT endpoint for the route /api/games/:id.
+router.put('/:id', async (req, res) => {
+    try{
+        const updatedGame = await Game.findByIdAndUpdate(req.params.id, req.body, {new: true});//It finds a game in the games collection by its ID (req.params.id), updates it with the new data from the request body (req.body), and returns the updated game data with the {new: true} option.
+        res.json(updatedGame);//This sends a JSON response with the updated game data.
+    }catch{
+        console.log(`Somthing went wrong: ${error.message}`)
+    }
+})
+
+//ALL DELETE ROUTES BELOW THIS SECTION
+
+
+//DELETE ROUTE FOR ALL MODELS
+// DELETE request to /api/teams/:id
+router.delete('/:id', async (req, res) => {
+    try {
+      const deletedTeam = await Team.findByIdAndDelete(req.params.id);
+      const deletedGame = await Game.findByIdAndDelete(req.params.id);
+      const deletedPlayer = await Player.findByIdAndDelete(req.params.id);
+  
+      if (!deletedTeam && !deletedGame && !deletedPlayer) {
+        return res.status(404).json({ message: 'No matching documents found to delete.' });
+      }
+  
+      res.json({
+        message: 'Documents deleted successfully.',
+        deletedTeam,
+        deletedGame,
+        deletedPlayer,
+      });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
+  
 
 //EXPORT ROUTES
 module.exports = router;//exporting the router
