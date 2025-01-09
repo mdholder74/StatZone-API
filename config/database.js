@@ -3,7 +3,7 @@
 //IMPORTING MONGOOSE LIBRARY
 const mongoose = require('mongoose');//This imports the Mongoose library to interact with a MongoDB database.
 
-//CONNECT TO MONGODB
+//CONNECT TO MONGODB FUNCTION
 const connection = async () => {
     try {
         mongoose.connect(process.env.MONGO_URI)//This connects to the MongoDB database using the MONGO_URI environment variable

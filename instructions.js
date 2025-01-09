@@ -4,7 +4,7 @@
 npm init -y
 
 // 💻 Step 2: Run this command to install necessary packages:
-npm install dotenv express mongoose
+npm install dotenv express mongoose mongodb
 
 // 📂 Step 3: Create the following folders in the root of your project:
 // - config

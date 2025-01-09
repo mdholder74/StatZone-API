@@ -4,7 +4,7 @@ require('dotenv').config();
 //SETUP EXPRESS SERVER
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 2000;
 
 //IMPORT MONGOOSE CONNECTION FUNCTION
 const connection = require('./config/database');//importing the conn function from the db.js file in the config folder
