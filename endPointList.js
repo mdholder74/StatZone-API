@@ -21,3 +21,15 @@ This file contains the list of all the endpoints in the application.
 | Games        | `/api/nfl/games/:id`     | DELETE          | Delete a game by ID            |
 
 */
+
+/*
+HOW TO MAKE A POST REQUEST TO CREATE A NEW TEAM
+1. Open Postman
+2. Select the POST method
+3. Enter the URL: http://localhost:2000/api/nfl/teams
+4. Select the Body tab
+5. Select the raw option
+6. Select JSON (application/json) from the dropdown
+7. Enter the team data in JSON format everything must be in double quotes the keys and values
+8. Click the Send button
+*/
