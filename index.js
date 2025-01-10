@@ -10,6 +10,10 @@ const port = process.env.PORT || 2000;
 const connection = require('./config/database');//importing the conn function from the db.js file in the config folder
 connection();//calling the conn function to connect to the database
 
+//IMPORT BODY PARSER
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true })); // For handling form submissions
+
 //SETUP MIDDLEWARE FOR POST REQUESTS
 app.use(express.json());
 
