@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>Add a New Player</title>
+</head>
+<body>
+    <h1>Add a New Team</h1>
+    <form action="/api/teams" method="POST">
+      <!-- Team Name -->
+      <label for="teamName">Team Name:</label>
+      <input type="text" id="teamName" name="teamName" required><br><br>
+  
+      <!-- City -->
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required><br><br>
+  
+      <!-- Founded Year -->
+      <label for="foundedYear">Founded Year:</label>
+      <input type="number" id="foundedYear" name="foundedYear" required><br><br>
+  
+      <!-- Super Bowl Wins -->
+      <label for="superbowlWins">Super Bowl Wins:</label>
+      <input type="number" id="superbowlWins" name="superbowlWins" min="0" max="10" required><br><br>
+  
+      <!-- Franchise Players -->
+      <h3>Franchise Players</h3>
+      <label for="playerName1">Player Name:</label>
+      <input type="text" id="playerName1" name="franchisePlayers[0][name]" required><br><br>
+  
+      <label for="playerPosition1">Position:</label>
+      <input type="text" id="playerPosition1" name="franchisePlayers[0][position]" required><br><br>
+  
+      <label for="jerseyNumber1">Jersey Number:</label>
+      <input type="number" id="jerseyNumber1" name="franchisePlayers[0][jerseyNumber]" min="0" max="99" required><br><br>
+  
+      <!-- Add More Players if Needed -->
+      <p>You can add more players by modifying this form if needed.</p>
+  
+      <!-- Submit Button -->
+      <button type="submit">Submit Team</button>
+    </form>
+    <h1>Add a New Player</h1>
+    <form action="/api/players" method="POST">
+        <!-- Player Name -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+    
+        <!-- Position (Dropdown with Enum Options) -->
+        <label for="position">Position:</label>
+        <select id="position" name="position" required>
+        <option value="">-- Select Position --</option>
+        <option value="Quarterback">Quarterback</option>
+        <option value="Running Back">Running Back</option>
+        <option value="Wide Receiver">Wide Receiver</option>
+        <option value="Tight End">Tight End</option>
+        <option value="Offensive Lineman">Offensive Lineman</option>
+        <option value="Left Tackle">Left Tackle</option>
+        <option value="Right Tackle">Right Tackle</option>
+        <option value="Left Guard">Left Guard</option>
+        <option value="Right Guard">Right Guard</option>
+        <option value="Center">Center</option>
+        <option value="Defensive Lineman">Defensive Lineman</option>
+        <option value="Defensive Tackle">Defensive Tackle</option>
+        <option value="Defensive End">Defensive End</option>
+        <option value="Linebacker">Linebacker</option>
+        <option value="Middle Linebacker">Middle Linebacker</option>
+        <option value="Outside Linebacker">Outside Linebacker</option>
+        <option value="Cornerback">Cornerback</option>
+        <option value="Safety">Safety</option>
+        <option value="Free Safety">Free Safety</option>
+        <option value="Strong Safety">Strong Safety</option>
+        <option value="Kicker">Kicker</option>
+        <option value="Punter">Punter</option>
+        <option value="Long Snapper">Long Snapper</option>
+        <option value="Kick Returner">Kick Returner</option>
+        <option value="Punt Returner">Punt Returner</option>
+        </select><br><br>
+        <!-- Player Stats -->
+        <h3>Player Stats</h3>
+        <!-- Games Played -->
+        <label for="gamesPlayed">Games Played:</label>
+        <input type="number" id="gamesPlayed" name="stats[gamesPlayed]" required min="0"><br><br>
+        <!-- Touchdowns -->
+        <label for="touchdowns">Touchdowns:</label>
+        <input type="number" id="touchdowns" name="stats[touchdowns]" required min="0"><br><br>
+        <!-- Receiving Yards -->
+        <label for="receivingYards">Receiving Yards:</label>
+        <input type="number" id="receivingYards" name="stats[receivingYards]" required min="0" max="25000"><br><br>
+        <!-- Passing Yards -->
+        <label for="passingYards">Passing Yards:</label>
+        <input type="number" id="passingYards" name="stats[passingYards]" required min="0" max="100000"><br><br>
+        <!-- Submit Button -->
+        <button type="submit">Submit</button>
+    </form>
+    <h1>Add a New Game</h1>
+    <form action="/api/games" method="POST">
+        <!-- Home Team -->
+        <label for="homeTeam">Home Team:</label>
+        <input type="text" id="homeTeam" name="homeTeam" required><br><br>
+
+        <!-- Away Team -->
+        <label for="awayTeam">Away Team:</label>
+        <input type="text" id="awayTeam" name="awayTeam" required><br><br>
+
+        <!-- Date -->
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date"><br><br>
+
+        <!-- Scores -->
+        <label for="homeTeamScore">Home Team Score:</label>
+        <input type="number" id="homeTeamScore" name="score[homeTeamScore]" required><br><br>
+
+        <label for="awayTeamScore">Away Team Score:</label>
+        <input type="number" id="awayTeamScore" name="score[awayTeamScore]" required><br><br>
+
+        <!-- Location -->
+        <h3>Location</h3>
+        <label for="stadium">Stadium:</label>
+        <input type="text" id="stadium" name="location[stadium]" required><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="location[city]" required><br><br>
+
+        <label for="country">Country:</label>
+        <input type="text" id="country" name="location[country]" value="USA"><br><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit Game</button>
+    </form>
+</body>
+</html>
